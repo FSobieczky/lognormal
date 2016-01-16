@@ -1,0 +1,4 @@
+This is a little pamphlet about the lognormal distribution.
+
+Use knitr (in rstudio or alt-n r in emacs in ess mode) from R to compile
+to get lognormal.pdf
