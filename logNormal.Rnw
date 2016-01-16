@@ -1,0 +1,276 @@
+\documentclass{article}
+\usepackage{amsfonts, amssymb, amsthm}
+\usepackage[sc]{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{soul}
+\geometry{verbose,tmargin=1.8cm,bmargin=1.8cm,lmargin=2.5cm,rmargin=2.5cm}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\usepackage{url}
+\usepackage[intlimits,fleqn]{amsmath}
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]{hyperref}
+\hypersetup{ pdfstartview={XYZ null null 1}}
+
+
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\D}[2]{\frac{\textrm{d}#1}{\textrm{d}#2}}
+\newcommand{\vs}[1]{\vspace{#1cm}}
+\newcommand{\suli}[2]{\sum\limits_{#1}^{#2}}
+\newcommand{\ili}[2]{\int\limits_{#1}^{#2}}
+\newcommand{\hs}[1]{\hspace{#1cm}}
+\newcommand{\ex}[1]{\bigvee\limits_{#1}}
+\newcommand{\al}[1]{\bigwedge\limits_{#1}}
+
+\def\eh{\frac{1}{2}}
+\def\ev{\frac{1}{4}}
+\def\eph{\frac{\epsilon}{2}}
+\def\be{\begin{eqnarray*}}
+\def\bel{\begin{eqnarray}}
+\def\ee{\end{eqnarray*}}
+\def\eel{\end{eqnarray}}
+\def\a{\alpha}
+\def\b{\beta}
+\def\w{\omega}
+\def\wb{\bar{\omega}}
+\def\bw{\bar{\omega}}
+\def\wh{\widehat}
+\def\A{\hat{A}}
+\def\L{\mathcal{L}}
+\def\Lh{\hat{\mathcal{L}}}
+\def\R{\mathbb{R}}
+\def\N{\mathbb{N}}
+\def\E{\mathbb{E}}
+\def\P{\mathbb{P}}
+\def\Pr{\mathcal{P}}
+\def\Pri{\mathcal{P}_{INV}}
+\def\Prp{\mathcal{P}^\perp}
+\def\C{\mathbb{C}}
+\def\Cs{\mathsc{Cs}}
+\def\Cn{C_{\bar{o}}}
+\def\B{\mathcal{B}}
+\def\bG{\bar{G}}
+\def\bE{\bar{E}}
+\def\bV{\bar{V}}
+\def\bS{\bar{S}}
+\def\bF{\bar{F}}
+\def\bh{\bar{h}}
+\def\uh{\underline{h}}
+\def\bare{\bar{e}}
+\def\F{\mathcal{F}}
+\def\I{\mathcal{I}}
+\def\S{\sigma}
+\def\W{\mathcal{W}}
+\def\Wj{\mathcal{W}^0_j}
+\def\Y{\mathcal{Y}}
+\def\Z{\mathbb{Z}}
+\def\O{\mathcal{O}}
+\def\T{\mathcal{T}}
+\def\V{\mathcal{V}}
+\def\Hb{\bar{H}}
+\def\Vb{\bar{V}}
+\def\Eb{\bar{E}}
+\def\eb{\bar{e}}
+\def\Ab{\bar{A}}
+\def\Nb{\bar{N}}
+\def\U{\mathcal{U}}
+\def\h{{\bf h}}
+\def\g{\gamma}
+
+\def\e{\epsilon}
+\def\d{\delta}
+\def\dh{\hat{\delta}}
+\def\id{\mathbb{I}}
+
+
+\def\Sp{\textrm{Tr}}
+\def\lili{\lim\limits}
+\def\nn{\nonumber}
+\def\fa{\bigwedge\limits}
+\def\sme{\setminus^e}
+
+\def\eqiv{\Leftrightarrow}
+\def\implies{\Rightarrow}
+\def\vec{\left(\begin{array}{cc} }
+\def\cev{\end{array} \right)}
+
+\theoremstyle{plain}
+\newtheorem{theo}{Theorem}[section]
+\newtheorem{lemma}[theo]{Lemma}
+\newtheorem{propo}[theo]{Proposition}
+\newtheorem{corollary}[theo]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defi}[theo]{Definition}
+\newtheorem{notation}[theo]{Notation}
+\newtheorem{remark}[theo]{Remark}
+\newtheorem{example}[theo]{Example}
+
+%\renewcommand{\baselinestretch}{2.0}
+
+\begin{document}
+<<setup, include=FALSE, cache=FALSE>>=
+# set global chunk options
+opts_chunk$set(fig.path='figure/minimal-', fig.align='center', fig.show='hold')
+options(formatR.arrow=TRUE,width=90)
+@
+\setlength{\parindent}{0pt}
+
+\title{What defines the lognormal distribution? }
+
+\author{F.S. and J.H.}
+
+\maketitle
+
+{\bf Abstract:} The lognormal distribution appears to be the probability law of many interesting
+natural phenomena. However, due to its heavy-tailed density, it cannot be concluded from information
+about its moments, alone, whether it is the cause for a given set of observations.
+
+
+\section{Introduction}
+
+A lognormal random variable $X$ is one for which the
+(natural and therefore any) logarithm of $X$ is normally distributed,
+i.e.  for which $\P[(\log(X)-\mu)/\sigma \le t]\;\;=\;\;\Phi(t)$,
+where $t\in \R$ and $\Phi$ is the standard normal distribution
+function. 
+
+Taking the derivative of $\Phi(t)$ shows us that the density function
+of this lognormal variable has to be 
+
+\bel
+\frac{d}{dt}\P[X \le \exp(t\sigma+\mu)]
+\;\;&=&\;\;\frac{1}{\sqrt{2\pi}\sigma}
+\exp\left(-\eh\frac{(\log t\;-\;\mu)^2}{\sigma^2}\right) \frac{1}{t}\label{eq:dist}
+\eel
+
+Which properties of the normal distribution are inherited?\\
+
+The decay of the density for large $t$ is much weaker than that of 
+a Gaussian curve, which means that {\em fewer} expected values exist. In
+fact, for every $a>0$ the integral
+
+\be
+\E[\exp(a X)]\;\;=\;\;\int_\R \frac{1}{\sqrt{2\pi}\sigma t}
+\exp\left(a\cdot t-\eh\frac{(\log t\;-\;\mu)^2}{\sigma^2}\right) dt
+\ee
+
+diverges since the linear growth of $a\cdot t$ weighs heavier than the
+(square of) logarithmic one, in the exponent. However, even though this
+moment generating function doesn't exist, all moments (still) do 
+
+\be
+\E[X^n]\;\;=\;\;\int_\R \frac{1}{\sqrt{2\pi}\sigma t} t^n
+\exp\left(-\eh\frac{(\log t\;-\;\mu)^2}{\sigma^2}\right) dt \;\;=\;\;
+e^{n\mu+\eh n^2\sigma^2}.
+\ee
+
+In order to see how much less concentrated a lognormal variable is
+consider a normally distributed variable with mean $\mu$ and variance
+$\sigma^2$. Then, in comparison,  the mean of the lognormal variable is
+much larger than just $e^\mu$, and its variance is also exponentially
+growing in $\sigma^2$:\\
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+  \hline
+  & Mean & Var\\
+  \hline
+ $\log X$  & $\mu$ & $\sigma^2$\\ 
+    $X$ & $e^{\mu+\eh\sigma^2}$& $(e^{\sigma^2}-1)\E[X]^2$\\
+  \hline
+\end{tabular}
+\end{center}
+
+This shows that a lognormal variable is much more `elusive' than a normal one.
+But what consequences does this have? What are the `drawbacks'?\\
+
+\section{Determining the Distribution from the Moments}
+
+
+The so called {\bf Stieltjes Moment Problem} asks whether the moments
+of a positive random variable determines its distribution and whether
+such a distribution is {\em unique}
+(\url{https://en.wikipedia.org/wiki/Hamburger_moment_problem}).\\
+
+In other words, estimating the moments (maybe through a clever way of
+sampling, and using large data-sets), can we conclude that the
+variable has (\ref{eq:dist}) as its distribution?\\
+
+The answer for the lognormal distribution is {\bf No}.\\
+
+The Moment Problem is {\bf uniquely solvable} if the Carleman condition
+(which is justly termed: \url{https://en.wikipedia.org/wiki/Torsten_Carleman})
+is fulfilled: 
+
+\be
+\suli{n=0}{\infty} \E[X^n]^{-\frac{1}{2n}} = +\infty
+\ee
+
+In the case of a lognormal variable \mbox{$\suli{n}{\infty}
+\exp\left(n\mu+\eh n^2\sigma^2\right)^{-\frac{1}{2n}} =
+\suli{n}{\infty} \exp\left(-\eh\mu-\frac{1}{4}n\sigma^2\right) =
+e^{-\eh\mu}\frac{1}{1-\exp(-\frac{\sigma^2}{4})}<\infty$}.
+
+Carleman's condition is only sufficient. Therefore, we `only' {\em don't know}
+whether the LogNormal distribution is uniquely determined by its moments.\\
+
+However, it has been proven in a paper from C. Kleiber
+(\url{https://www.researchgate.net/publication/234060305_The_Generalized_Lognormal_Distribution_and_the_Stieltjes_Moment_Problem})
+that it is indeterminate (together with a whole class of other similar
+so called generalized lognormal distributions):
+\url{https://www.researchgate.net/publication/234060305_The_Generalized_Lognormal_Distribution_and_the_Stieltjes_Moment_Problem}.
+
+The paper also identifies sets of distributions with the same moments
+(called Stieltjes classes, there). They are constructed by looking for
+functions (=:perturbations) $p(t)$, such that
+$f_\epsilon(t)\;\;=\;\;f(t)+\epsilon p(t)$ is a probability density
+and $\int_{\R_+} t^np(t)dt = 0$, for all $n>0$.\\
+
+Using the construction of Theorem 4 of that paper, we check whether 
+we get the first few  moments {\bf equal} from two different 
+distributions, one of which is the lognormal distribution. We
+assume $\mu=0$ and $\sigma=1$:
+
+<<>>=
+t <- (1:100000)/100 # Gives us a uniform set of points `t' in [0,1000000].
+f <- function(t){(1/(sqrt(2*pi)*t))*exp(-0.5*log(t)^2)}
+g <- function(t){ifelse(t>1,sin(10*(t-1)^0.25)*exp(-10*(t-1)^0.25)/f(t),0.0)}
+H <- max(abs(g(t)),na.rm=TRUE)    # If na.rm=FALSE, then H becomes `NA' (happens at 0-->log0)
+p <- function(t){ g(t)/H }   # Normalization
+f2 <- function(t){ f(t)+p(t) }
+plot(t,f(t)+p(t), type="line", col="red",ylim=c(0,1), xlim=c(0,20))
+lines(t,f(t), col="blue")
+integral<-function(F,G){ sum(F*G,na.rm=TRUE)/100000 }# Riemann-Integral Approx. over [0,10]
+qf<-rep(0,6);
+qp<-rep(0,6);
+for(i in 0:5) {qf[i+1] <- integral(f(t),t^i)}
+for(i in 0:5) {qp[i+1] <- integral(f2(t),t^i)}
+print(cbind(1:6-1,qf,qp));
+@ 
+
+The differences we see are in the ith moment are growing in i and are
+due to numerical errors.  The integration becomes more and more
+difficult for increasing moments, as the underlying relation
+$\int\limits_0^\infty x^k\sin(x^\frac{1}{4})exp(-x^{\frac{1}{4}})=0$ involves larger and
+larger subsets of $\R_+$ to verify, numerically.\\
+
+\section{Conclusion}
+
+When we find evidence in data that suggests that the lognormal distribution may
+be the underlying probability law, we should check if this information is 'only'
+equivalent to the moments of the distribution. In this case, we have to take into
+account the possibility of a whole classes of other possible distributions to be
+responsible for the given measurements.\\
+
+{\bf Open Questions:}
+It would be an interesting question to check to what degree such other examples
+also fulfill the nice geometric moment properties of the lognormal distribution
+(see \url{https://en.wikipedia.org/wiki/Log-normal_distribution}).
+
+
+\end{document}
